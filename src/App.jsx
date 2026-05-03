@@ -30,15 +30,57 @@ export default function App() {
     const element = previewRef.current;
     if (!element) return;
 
+    const date = new Date().toLocaleDateString(undefined, { year: 'numeric', month: 'long', day: 'numeric' });
+
     const opt = {
-      margin:       0,
+      margin:       [0.4, 0.3, 0.4, 0.3], // Reverted top margin to standard for all pages
       filename:     `${title || 'Quick-Reference-Guide'}.pdf`,
       image:        { type: 'jpeg', quality: 0.98 },
-      html2canvas:  { scale: 2, useCORS: true },
+      pagebreak:    { mode: ['css', 'legacy'] },
+      html2canvas:  { 
+        scale: 2, 
+        useCORS: true,
+        logging: false,
+        letterRendering: true,
+        onclone: (clonedDoc) => {
+            const el = clonedDoc.querySelector('.preview-container');
+            if (el) {
+              el.style.boxShadow = 'none';
+              el.style.border = 'none';
+              el.style.padding = '0 0 20px 0'; // Remove top padding
+              el.style.width = '100%';
+              el.style.maxWidth = 'none';
+              
+              // Only pull the title up on the first page
+              const titleEl = clonedDoc.querySelector('.preview-title');
+              if (titleEl) {
+                titleEl.style.marginTop = '-0.2in'; // Specifically reduce first page header space
+              }
+            }
+        }
+      },
       jsPDF:        { unit: 'in', format: pageSize, orientation: 'portrait' }
     };
 
-    html2pdf().set(opt).from(element).save();
+    html2pdf().set(opt).from(element).toPdf().get('pdf').then((pdf) => {
+      const totalPages = pdf.internal.getNumberOfPages();
+      const pageWidth = pdf.internal.pageSize.getWidth();
+      const pageHeight = pdf.internal.pageSize.getHeight();
+      
+      for (let i = 1; i <= totalPages; i++) {
+        pdf.setPage(i);
+        pdf.setFontSize(9);
+        pdf.setTextColor(150);
+        
+        // Created on (Only on last page)
+        if (i === totalPages) {
+          pdf.text(`Created on ${date}`, 0.5, pageHeight - 0.35);
+        }
+        
+        // Page Number (Right)
+        pdf.text(`Page ${i} of ${totalPages}`, pageWidth - 0.5, pageHeight - 0.35, { align: 'right' });
+      }
+    }).save();
   };
 
   return (

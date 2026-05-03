@@ -379,15 +379,15 @@ textarea {
 
 /* Live Preview */
 .preview-container {
-  background: var(--bg-card);
-  border: 1px solid var(--border);
-  border-radius: 0; /* PDF style */
-  box-shadow: var(--shadow-md);
+  background: #ffffff;
+  border: none;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
   margin: 0 auto;
-  max-width: 800px; /* A4-ish proportions */
+  max-width: 800px;
   width: 100%;
-  min-height: 1056px; /* 8.5 x 11 roughly */
-  padding: 48px;
+  min-height: 1056px;
+  padding: 60px 50px;
+  position: relative;
 }
 
 .preview-title {
@@ -402,6 +402,7 @@ textarea {
 .preview-step {
   margin-bottom: 40px;
   page-break-inside: avoid;
+  break-inside: avoid;
 }
 
 .preview-step-header {
@@ -409,11 +410,12 @@ textarea {
   align-items: center;
   gap: 16px;
   margin-bottom: 12px;
+  padding-top: 4px; /* Added to prevent clipping at top of pages */
 }
 
 .preview-step-number {
   background: var(--text-primary);
-  color: var(--bg-card);
+  color: #ffffff;
   width: 32px;
   height: 32px;
   border-radius: 50%;
@@ -423,6 +425,7 @@ textarea {
   font-size: 1rem;
   font-weight: 600;
   flex-shrink: 0;
+  line-height: 1;
 }
 
 .preview-step-title {
@@ -441,9 +444,7 @@ textarea {
 
 .preview-step-image {
   margin-left: 48px;
-  border: 1px solid var(--border);
-  border-radius: 4px;
-  overflow: hidden;
+  margin-top: 12px;
 }
 
 .preview-step-image img {

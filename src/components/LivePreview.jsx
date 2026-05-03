@@ -30,8 +30,7 @@ const LivePreview = forwardRef(({ title, steps, settings }, ref) => {
           style={{ 
             fontFamily: `"${settings.fontFamily}", sans-serif`,
             fontSize: `${settings.fontSize}px`,
-            position: 'relative',
-            paddingBottom: '80px' // Space for footer
+            position: 'relative'
           }}
         >
           {settings.logo && (
@@ -72,11 +71,6 @@ const LivePreview = forwardRef(({ title, steps, settings }, ref) => {
                 )}
               </div>
             ))
-          )}
-          {steps.length > 0 && (
-            <div style={{ position: 'absolute', bottom: '48px', left: '48px', right: '48px', borderTop: '1px solid var(--border)', paddingTop: '16px', color: 'var(--text-secondary)', fontSize: '0.85em', textAlign: 'center' }}>
-              Created on {date}
-            </div>
           )}
         </div>
       </div>
