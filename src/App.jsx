@@ -4,12 +4,13 @@ import { Download, FileText } from 'lucide-react';
 import StepBuilder from './components/StepBuilder';
 import LivePreview from './components/LivePreview';
 import SettingsPanel from './components/SettingsPanel';
+import Footer from './components/Footer';
 
 export default function App() {
   const [settings, setSettings] = useState({
     logo: null,
     titleFontSize: 32, // Reduced from 40px
-    numberColor: '#111111',
+    numberColor: '#0f1115',
     fontFamily: 'Inter',
     fontSize: 16
   });
@@ -48,16 +49,6 @@ export default function App() {
           Saurabh's QRG Creator
         </h1>
         <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-          <select 
-            value={pageSize} 
-            onChange={(e) => setPageSize(e.target.value)}
-            className="btn btn-outline"
-            style={{ padding: '8px', cursor: 'pointer' }}
-          >
-            <option value="letter">Letter (8.5" x 11")</option>
-            <option value="a4">A4 (8.27" x 11.69")</option>
-            <option value="legal">Legal (8.5" x 14")</option>
-          </select>
           <button className="btn btn-primary" onClick={handleExportPDF}>
             <Download size={18} /> Export to PDF
           </button>
@@ -66,7 +57,7 @@ export default function App() {
 
       <main className="main-content">
         <div style={{ flex: 1, display: 'flex', flexDirection: 'column', borderRight: '1px solid var(--border)', minHeight: 0, overflow: 'hidden' }}>
-          <SettingsPanel settings={settings} setSettings={setSettings} />
+          <SettingsPanel settings={settings} setSettings={setSettings} pageSize={pageSize} setPageSize={setPageSize} />
           <div style={{ padding: '24px 24px 0 24px', flexShrink: 0 }}>
             <input
               type="text"
@@ -81,6 +72,7 @@ export default function App() {
         
         <LivePreview title={title} steps={steps} settings={settings} ref={previewRef} />
       </main>
+      <Footer />
     </div>
   );
 }

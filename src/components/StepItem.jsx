@@ -34,8 +34,10 @@ export default function StepItem({ step, index, updateStep, removeStep, duplicat
 
   const handlePaste = (e) => {
     const items = e.clipboardData.items;
+    let hasImage = false;
     for (let i = 0; i < items.length; i++) {
       if (items[i].type.indexOf('image') !== -1) {
+        hasImage = true;
         const file = items[i].getAsFile();
         const reader = new FileReader();
         reader.onloadend = () => {
@@ -43,6 +45,12 @@ export default function StepItem({ step, index, updateStep, removeStep, duplicat
         };
         reader.readAsDataURL(file);
       }
+    }
+    
+    // If we found an image and handled it, prevent default to avoid
+    // the browser also pasting it into the RichTextEditor if that's focused
+    if (hasImage) {
+      e.preventDefault();
     }
   };
 

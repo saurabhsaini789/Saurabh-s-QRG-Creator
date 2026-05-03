@@ -18,7 +18,7 @@ const LivePreview = forwardRef(({ title, steps, settings }, ref) => {
   const date = new Date().toLocaleDateString(undefined, { year: 'numeric', month: 'long', day: 'numeric' });
 
   return (
-    <div className="panel" style={{ backgroundColor: '#e5e7eb' }}>
+    <div className="panel" style={{ backgroundColor: 'var(--bg-main)' }}>
       <div className="panel-header">
         <h2 className="panel-title">Live Preview</h2>
       </div>
@@ -74,7 +74,7 @@ const LivePreview = forwardRef(({ title, steps, settings }, ref) => {
             ))
           )}
           {steps.length > 0 && (
-            <div style={{ position: 'absolute', bottom: '48px', left: '48px', right: '48px', borderTop: '1px solid var(--border)', paddingTop: '16px', color: '#666', fontSize: '0.85em', textAlign: 'center' }}>
+            <div style={{ position: 'absolute', bottom: '48px', left: '48px', right: '48px', borderTop: '1px solid var(--border)', paddingTop: '16px', color: 'var(--text-secondary)', fontSize: '0.85em', textAlign: 'center' }}>
               Created on {date}
             </div>
           )}

@@ -70,11 +70,8 @@ export default function StepBuilder({ steps, setSteps }) {
 
   return (
     <div className="panel panel-editor">
-      <div className="panel-header" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-        <h2 className="panel-title" style={{ marginBottom: 0 }}>Steps</h2>
-        <button className="btn btn-outline" onClick={addStep} style={{ padding: '4px 12px' }}>
-          <Plus size={16} /> Add Step
-        </button>
+      <div className="panel-header">
+        <h2 className="panel-title">Steps</h2>
       </div>
       
       <div className="scroll-area">
@@ -99,6 +96,12 @@ export default function StepBuilder({ steps, setSteps }) {
             ))}
           </SortableContext>
         </DndContext>
+
+        <div style={{ marginTop: '16px', display: 'flex', justifyContent: 'center' }}>
+          <button className="btn btn-outline" onClick={addStep} style={{ width: '100%', borderStyle: 'dashed' }}>
+            <Plus size={16} /> Add Step
+          </button>
+        </div>
       </div>
     </div>
   );
